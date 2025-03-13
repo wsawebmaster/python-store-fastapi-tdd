@@ -1,74 +1,63 @@
-# 📂 Desenvolvendo API com FastAPI, Python e Docker
+# 📂 Desenvolvendo uma API com FastAPI utilizando TDD
 
 ## 📃 Descrição
 
-Neste projeto, iremos desenvolver uma poderosa API assíncrona para uma academia, focada em uma competição de Crossfit. Essa experiência nos ajudará a entender e lidar com operações simultâneas de maneira eficaz e escalável.
+Neste projeto, iremos desenvolver uma API com FastAPI utilizando o Test-Driven Development (Desenvolvimento Guiado por Testes ou simplesmente TDD) que é uma metodologia que prioriza a criação de testes antes do código, vamos entender como criar tests com o `pytest`. Construindo testes de Schemas, Usecases e Controllers (teste de integração).
 
 ## 🚀 Tecnologias Utilizadas
 
 - Python
-- FastAPI
-- Alembic
+- TDD com FastAPI + Pytest;
 - Docker
-- SQLAlchemy
 - Pydantic
-- PostgreSQL
+- Pyenv + Poetry
+- Make
+- MongoDB
 - Git e Github
 
-## Modelagem de entidade e relacionamento - MER
-![MER](/mer.jpg "Modelagem de entidade e relacionamento")
+## Ciclo do TDD
+![TDD](/docs/img/tdd.webp "Desenvolvimento Guiado por Testes")
 
-### Subir Containers do Projeto
+O TDD segue um ciclo de três etapas principais, conhecido como Red-Green-Refactor:
+
+1 - Red (Vermelho - Escrever o teste)
+
+- Escreva um teste unitário para a funcionalidade desejada.
+- Execute o teste e verifique que ele falha (já que o código ainda não foi implementado).
+
+2 - Green (Verde - Fazer o teste passar)
+
+- Implemente o código mínimo necessário para que o teste passe.
+- Execute os testes novamente e verifique que o código está funcionando.
+
+3 - Refactor (Refatoração)
+
+- Refatore o código para melhorar sua estrutura e qualidade sem alterar sua funcionalidade.
+- Execute os testes novamente para garantir que tudo ainda funciona corretamente.
+
+Esse ciclo é repetido continuamente durante o desenvolvimento.
+
+### Arquitetura
+|![C4](/docs/img/store.drawio.png)|
+|:--:|
+| Diagrama de C4 da Store API |
+
+### Banco de dados - MongoDB
+|![C4](/docs/img/product.drawio.png)|
+|:--:|
+| Database - Store API |
+
+## Preparar ambiente
+
+Vamos utilizar Pyenv + Poetry, link de como preparar o ambiente abaixo:
+
+[poetry-documentation](https://github.com/nayannanara/poetry-documentation/blob/master/poetry-documentation.md)
+
+[oficial](hhttps://python-poetry.org/docs/)
+
+### Subir Container do Projeto
 
     docker-compose up -d
-
-### Acessar
-API: [http://localhost:8000/docs](http://localhost:8000/docs)<br /><br />
-
-
-Acessar o container python
-```sh
-# Acessar o container
-docker-compose exec python bash
-
-# 1. Limpar migrações existentes (se necessário)
-rm -rf alembic/versions/*
-
-# 2. Criar migração inicial
-PYTHONPATH=$PYTHONPATH:$(pwd) alembic revision --autogenerate -m "init_db"
-
-# 3. Aplicar migração
-PYTHONPATH=$PYTHONPATH:$(pwd) alembic upgrade head
-
-# 4. Verificar tabelas criadas
-psql -U workout -d workout -h db -c "\dt"
-
-# 5. Verificar estrutura das tabelas
-psql -U workout -d workout -h db -c "\d atletas"
-psql -U workout -d workout -h db -c "\d categorias"
-psql -U workout -d workout -h db -c "\d centros_treinamento"
-```
-
-### 🔍 Troubleshooting
-
-Se encontrar o erro "Can't locate revision":
-```bash
-# Remover migrações antigas
-rm -rf alembic/versions/*
-
-# Recriar migrations do zero
-PYTHONPATH=$PYTHONPATH:$(pwd) alembic revision --autogenerate -m "init_db"
-PYTHONPATH=$PYTHONPATH:$(pwd) alembic upgrade head
-
-```
-
-### Atualizar o conteúdo do requirements.txt
-
-    pip freeze > requirements.txt
-
-### Instalar todas dependências
-
-    pip install -r requirements.txt
 
 ### Remover todos os contêineres, redes e volumes definidos no arquivo docker-compose.yml
 
@@ -78,17 +67,18 @@ PYTHONPATH=$PYTHONPATH:$(pwd) alembic upgrade head
 
     [ "$(docker ps -q)" ] && docker stop $(docker ps -q); [ "$(docker ps -aq)" ] && docker rm $(docker ps -aq); [ "$(docker images -q)" ] && docker rmi $(docker images -q); docker network prune -f
 
-# Referências
+## Links uteis de documentação
+[mermaid](https://mermaid.js.org/)
 
-FastAPI: https://fastapi.tiangolo.com/
+[pydantic](https://docs.pydantic.dev/dev/)
 
-Pydantic: https://docs.pydantic.dev/latest/
+[validatores-pydantic](https://docs.pydantic.dev/latest/concepts/validators/)
 
-SQLAlchemy: https://docs.sqlalchemy.org/en/20/
+[model-serializer](https://docs.pydantic.dev/dev/api/functional_serializers/#pydantic.functional_serializers.model_serializer)
 
-Alembic: https://alembic.sqlalchemy.org/en/latest/
+[mongo-motor](https://motor.readthedocs.io/en/stable/)
 
-Fastapi-pagination: https://uriyyo-fastapi-pagination.netlify.app/
+[pytest](https://docs.pytest.org/en/7.4.x/)
 
 ---
 ---
