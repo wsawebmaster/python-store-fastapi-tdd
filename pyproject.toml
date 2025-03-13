@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "python-tdd-project"
+version = "0.0.1"
+description = ""
+authors = ["Wagner Andrade <wsawebmaster@yahoo.com.br>"]
+readme = "README.md"
+packages = [{include = "."}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.11"
+uvicorn = "^0.34.0"
+pydantic = "^2.10.6"
+pydantic-settings = "^2.8.1"
+motor = "^3.7.0"
+pytest = "^8.3.5"
+pytest-asyncio = "^0.25.3"
+pre-commit = "^4.1.0"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = [
+    "--strict-config",
+    "--strict-markers",
+    "--ignore=docs_src",
+]
+sfail_strict = true
+junit_family = "xunit2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
