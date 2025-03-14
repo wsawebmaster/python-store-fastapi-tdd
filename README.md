@@ -55,6 +55,8 @@ Vamos utilizar Pyenv + Poetry, link de como preparar o ambiente abaixo:
 
 [oficial](hhttps://python-poetry.org/docs/)
 
+Obs.: Caso queira acessar o banco direto pelo vscode recomendo usar a extensão do MongoDB
+
 ### Subir Container do Projeto
 
     docker-compose up -d
