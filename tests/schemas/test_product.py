@@ -1,5 +1,4 @@
 from pydantic import ValidationError
-
 import pytest
 from store.schemas.product import ProductIn
 from tests.schemas.factories import product_broken_data, product_data
@@ -17,8 +16,6 @@ def test_schemas_return_raise():
 
     with pytest.raises(ValidationError) as err:
         ProductIn.model_validate(data)
-
-    # breakpoint()
 
     assert err.value.errors()[0] == {
         "type": "missing",

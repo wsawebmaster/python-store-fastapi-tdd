@@ -2,7 +2,7 @@ from decimal import Decimal
 from typing import Annotated, Optional
 from bson import Decimal128
 from datetime import datetime
-from uuid import UUID, uuid4
+from uuid import UUID
 from pydantic import AfterValidator, Field, BaseModel
 from store.schemas.base import BaseSchemaMixin
 
@@ -19,13 +19,9 @@ class ProductIn(ProductBase, BaseSchemaMixin):
 
 
 class ProductOut(ProductIn):
-    id: UUID = Field(default_factory=uuid4, description="Identificador do produto")
-    created_at: datetime = Field(
-        default_factory=datetime.utcnow, description="Data de criação"
-    )
-    updated_at: datetime = Field(
-        default_factory=datetime.utcnow, description="Data de atualização"
-    )
+    id: UUID = Field()
+    created_at: datetime = Field()
+    updated_at: datetime = Field()
 
 
 def convert_decimal_128(v):
